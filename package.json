@@ -1,0 +1,29 @@
+{
+  "name": "paris-subway-api",
+  "version": "0.1.0",
+  "description": "GraphQL layer for RATP real-time API",
+  "author": "Grégoire Mielle <hello@greeeg.com> (https://greeeg.com/)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greeeg/paris-subway-api.git"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greeeg/paris-subway-api/issues"
+  },
+  "homepage": "https://github.com/greeeg/paris-subway-api#readme",
+  "devDependencies": {
+    "@types/node": "^12.12.15",
+    "nodemon": "^2.0.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "graphql-yoga": "^1.18.3",
+    "soap": "^0.30.0"
+  }
+}
