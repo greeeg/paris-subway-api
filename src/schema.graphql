@@ -1,3 +1,14 @@
+type Line {
+  id: String!
+  code: String!
+  name: String!
+  stations(test: String): [Station]!
+}
+
+type Station {
+  name: String!
+}
+
 type Query {
-  hello: String
+  lines: [Line]!
 }

@@ -10,7 +10,47 @@ soap.createClient('./src/wsiv.wsdl', function(err, client) {
     typeDefs: './src/schema.graphql',
     resolvers: {
       Query: {
-        hello: () => 'Hello World'
+        lines: async (
+          _: any,
+          args: any,
+          { client }: { client: soap.Client }
+        ) => {
+          return new Promise((resolve, reject) => {
+            client.getLines(
+              { line: { reseau: { code: 'metro' } } },
+              (err: any, result: any) => {
+                if (err) {
+                  reject();
+                }
+
+                resolve(result.return);
+              }
+            );
+          });
+        }
+      },
+      Line: {
+        id: (parent: any) => parent.id,
+        code: (parent: any) => parent.code,
+        name: (parent: any) => parent.name,
+        stations: (
+          parent: any,
+          args: any,
+          { client }: { client: soap.Client }
+        ) => {
+          return new Promise((resolve, reject) => {
+            client.getStations(
+              { station: { line: { id: parent.id } } },
+              function(err: any, result: any) {
+                if (err) {
+                  reject();
+                }
+
+                resolve(result.return.stations);
+              }
+            );
+          });
+        }
       }
     },
     context: { client }

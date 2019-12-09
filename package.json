@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc"
+    "build": "tsc --skipLibCheck"
   },
   "license": "MIT",
   "bugs": {
@@ -17,12 +17,14 @@
   },
   "homepage": "https://github.com/greeeg/paris-subway-api#readme",
   "devDependencies": {
+    "@types/es6-promisify": "^6.0.0",
     "@types/node": "^12.12.15",
     "nodemon": "^2.0.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
   },
   "dependencies": {
+    "es6-promisify": "^6.0.2",
     "graphql-yoga": "^1.18.3",
     "soap": "^0.30.0"
   }
