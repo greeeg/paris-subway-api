@@ -49,6 +49,8 @@ The following scripts are embedded with the package:
 
 ## Building for deployment
 
+> Please note that the Paris Transportation Authority (RATP) currently has an IP address whitelisting policy in order to use their real-time API. You can request access by using [this form](https://data.ratp.fr/api/datasets/1.0/horaires-temps-reel/attachments/fo_inscription_pdf/)
+
 ```sh
 # Build a Docker image for the project
 docker build -t paris-subway-api .
