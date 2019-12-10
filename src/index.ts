@@ -4,6 +4,7 @@ import resolvers from './resolvers';
 
 soap.createClient('./src/wsiv.wsdl', function(err, client) {
   if (err) {
+    console.log(err);
     throw new Error('Unable to create SOAP client');
   }
 
