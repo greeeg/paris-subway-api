@@ -13,5 +13,10 @@ soap.createClient('./src/wsiv.wsdl', function(err, client) {
     context: { client }
   } as any);
 
-  server.start(({ port }) => console.log(`Server is running on port ${port}`));
+  server.start(
+    {
+      tracing: process.env.NODE_ENV !== 'production'
+    },
+    ({ port }) => console.log(`Server is running on port ${port}`)
+  );
 });
