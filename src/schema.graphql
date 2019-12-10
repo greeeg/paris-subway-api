@@ -1,9 +1,19 @@
 type Line {
   id: String!
   code: String!
+  codeStif: String!
   name: String!
+  image: String!
+  reseau: Reseau
+}
+
+type Reseau {
+  id: String!
+  code: String!
+  name: String!
+  image: String!
 }
 
 type Query {
-  lines: [Line]!
+  lines(reseau: String): [Line]!
 }

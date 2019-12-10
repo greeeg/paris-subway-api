@@ -13,12 +13,28 @@ export type Line = {
    __typename?: 'Line',
   id: Scalars['String'],
   code: Scalars['String'],
+  codeStif: Scalars['String'],
   name: Scalars['String'],
+  image: Scalars['String'],
+  reseau?: Maybe<Reseau>,
 };
 
 export type Query = {
    __typename?: 'Query',
   lines: Array<Maybe<Line>>,
+};
+
+
+export type QueryLinesArgs = {
+  reseau?: Maybe<Scalars['String']>
+};
+
+export type Reseau = {
+   __typename?: 'Reseau',
+  id: Scalars['String'],
+  code: Scalars['String'],
+  name: Scalars['String'],
+  image: Scalars['String'],
 };
 
 
@@ -93,32 +109,45 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
-  Line: ResolverTypeWrapper<Line>,
   String: ResolverTypeWrapper<Scalars['String']>,
+  Line: ResolverTypeWrapper<Line>,
+  Reseau: ResolverTypeWrapper<Reseau>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {},
-  Line: Line,
   String: Scalars['String'],
+  Line: Line,
+  Reseau: Reseau,
   Boolean: Scalars['Boolean'],
 };
 
 export type LineResolvers<ContextType = any, ParentType extends ResolversParentTypes['Line'] = ResolversParentTypes['Line']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  codeStif?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  reseau?: Resolver<Maybe<ResolversTypes['Reseau']>, ParentType, ContextType>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  lines?: Resolver<Array<Maybe<ResolversTypes['Line']>>, ParentType, ContextType>,
+  lines?: Resolver<Array<Maybe<ResolversTypes['Line']>>, ParentType, ContextType, QueryLinesArgs>,
+};
+
+export type ReseauResolvers<ContextType = any, ParentType extends ResolversParentTypes['Reseau'] = ResolversParentTypes['Reseau']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = any> = {
   Line?: LineResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  Reseau?: ReseauResolvers<ContextType>,
 };
 
 
