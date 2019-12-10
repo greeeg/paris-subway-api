@@ -100,7 +100,7 @@ interface GeoPoint {
   y: number;
 }
 
-interface GetLinesArgs {
+export interface GetLinesArgs {
   line: {
     id?: string;
     code?: string;
@@ -116,7 +116,7 @@ interface GetLinesResponse {
   return: Line[];
 }
 
-interface GetDirectionsArgs extends GetLinesArgs {}
+export interface GetDirectionsArgs extends GetLinesArgs {}
 
 interface GetDirectionsResponse {
   return: {
@@ -127,7 +127,7 @@ interface GetDirectionsResponse {
   };
 }
 
-interface GetStationsArgs {
+export interface GetStationsArgs {
   station: {
     id?: string;
     name?: string;
@@ -155,7 +155,7 @@ interface GetStationsResponse {
   };
 }
 
-interface GetMissionsNextArgs {
+export interface GetMissionsNextArgs {
   station: {
     id: string;
     line: {

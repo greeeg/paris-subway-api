@@ -14,23 +14,11 @@ export type Line = {
   id: Scalars['String'],
   code: Scalars['String'],
   name: Scalars['String'],
-  stations: Array<Maybe<Station>>,
-};
-
-
-export type LineStationsArgs = {
-  test?: Maybe<Scalars['String']>
 };
 
 export type Query = {
    __typename?: 'Query',
   lines: Array<Maybe<Line>>,
-  directions: Array<Maybe<Line>>,
-};
-
-export type Station = {
-   __typename?: 'Station',
-  name: Scalars['String'],
 };
 
 
@@ -107,7 +95,6 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   Line: ResolverTypeWrapper<Line>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  Station: ResolverTypeWrapper<Station>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
@@ -116,7 +103,6 @@ export type ResolversParentTypes = {
   Query: {},
   Line: Line,
   String: Scalars['String'],
-  Station: Station,
   Boolean: Scalars['Boolean'],
 };
 
@@ -124,22 +110,15 @@ export type LineResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  stations?: Resolver<Array<Maybe<ResolversTypes['Station']>>, ParentType, ContextType, LineStationsArgs>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   lines?: Resolver<Array<Maybe<ResolversTypes['Line']>>, ParentType, ContextType>,
-  directions?: Resolver<Array<Maybe<ResolversTypes['Line']>>, ParentType, ContextType>,
-};
-
-export type StationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Station'] = ResolversParentTypes['Station']> = {
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = any> = {
   Line?: LineResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
-  Station?: StationResolvers<ContextType>,
 };
 
 
