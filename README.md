@@ -6,7 +6,7 @@
 [lintstaged]: https://github.com/okonet/lint-staged
 [storybook]: https://storybook.js.org/
 
-# Paris Subway API [![GitHub Actions][github-actions-badge]](https://github.com/greeeg/paris-subway-api/actions)
+# Paris Subway API
 
 > GraphQL layer for Paris Transportation Authority's [real-time API](https://dataratp.opendatasoft.com/page/temps-reel/)
 
