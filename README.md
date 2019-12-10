@@ -1,37 +1,58 @@
-# Paris Subway API
+[github-actions-badge]: https://github.com/greeeg/paris-subway-api/workflows/Test/badge.svg
+[typescript]: https://www.typescriptlang.org
+[graphql-yoga]: https://github.com/prisma-labs/graphql-yoga
+[soap]: https://github.com/vpulim/node-soap
+[prettier]: https://prettier.io/
+[lintstaged]: https://github.com/okonet/lint-staged
+[storybook]: https://storybook.js.org/
 
-One Paragraph of project description goes here
+# Paris Subway API [![GitHub Actions][github-actions-badge]](https://github.com/greeeg/paris-subway-api/actions)
 
-## Getting Started
+> GraphQL layer for Paris Transportation Authority's [real-time API](https://dataratp.opendatasoft.com/page/temps-reel/)
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+## Requirements
 
-### Prerequisites
+- Node.js version `10.15.3` or above
+- Yarn version `1.17.0` or above
 
-- With Docker
+## Stack
+
+- [TypeScript][typescript] as programming language
+- [GraphQL Yoga][graphql-yoga] as GraphQL server
+- [SOAP][soap] to communicate with RATP's webservice
+- [Prettier][prettier] and [Lint-staged][lintstaged] as code formatting and linting tools
+
+## Getting started
+
+```sh
+# Clone the repository
+git clone git@github.com:greeeg/paris-subway-api.git
+
+cd paris-subway-api
+
+# Install dependencies
+yarn install
+
+# Start a development server locally
+yarn run dev
 ```
-docker
-```
-- Without Docker
-```
-node.js
-yarn
-```
 
-### Installing
+## Scripts
 
-A step by step series of examples that tell you how to get a development env running
+The following scripts are embedded with the package:
 
-- With Docker
-```
+| Name             | Description                                          |
+| ---------------- | ---------------------------------------------------- |
+| `dev`            | Runs the project locally                             |
+| `build`          | Transpiles Typescript files to Javascript files      |
+| `generate:types` | Generates Typescript definitions from GraphQL schema |
+
+## Building for deployment
+
+```sh
+# Build a Docker image for the project
 docker build -t paris-subway-api .
+
+# Run image locally
 docker run -d -p 4000:4000 paris-subway-api
 ```
-
-- Without Docker
-```
-yarn install
-yarn dev
-```
-
-You can now get the API on [localhost:4000](http://localhost:4000/)
