@@ -1,3 +1,8 @@
+/*
+ * Types are converted from RATP official documentation
+ * See: http://data.ratp.fr/api/datasets/1.0/horaires-temps-reel/attachments/doc_wsiv_html
+ */
+
 import * as soap from 'soap';
 
 type Heure = string;
@@ -93,4 +98,101 @@ interface Perturbation {
 interface GeoPoint {
   x: number;
   y: number;
+}
+
+interface GetLinesArgs {
+  line: {
+    id?: string;
+    code?: string;
+    codeStif?: string;
+    realm?: string;
+    reseau?: {
+      code?: string;
+    };
+  };
+}
+
+interface GetLinesResponse {
+  return: Line[];
+}
+
+interface GetDirectionsArgs extends GetLinesArgs {}
+
+interface GetDirectionsResponse {
+  return: {
+    ambiguityMessage?: string;
+    ambiguousLines?: Line[];
+    argumentLine?: Line;
+    directions?: [Direction, Direction];
+  };
+}
+
+interface GetStationsArgs {
+  station: {
+    id?: string;
+    name?: string;
+    line?: {
+      id?: string;
+      code?: string;
+      codeStif?: string;
+      realm?: string;
+      reseau?: {
+        code?: string;
+      };
+    };
+    direction?: {
+      sens?: string;
+    };
+  };
+}
+
+interface GetStationsResponse {
+  return: {
+    ambiguityMessage?: string;
+    ambiguousLines?: Line[];
+    argumentLine?: Line;
+    stations?: Station[];
+  };
+}
+
+interface GetMissionsNextArgs {
+  station: {
+    id: string;
+    line: {
+      id: string;
+    };
+  };
+  direction: {
+    sens: string;
+  };
+  dateStart?: Date;
+  limit?: number;
+}
+
+interface GetMissionsNextResponse {
+  return: {
+    argumentDate: Date;
+    argumentLine?: Line;
+    argumentDirection?: Direction;
+    argumentStation?: Station;
+    missions?: Mission[];
+  };
+}
+
+type GetLinesCallback = (err: any, result: GetLinesResponse) => void;
+type GetDirectionsCallback = (err: any, result: GetDirectionsResponse) => void;
+type GetStationsCallback = (err: any, result: GetStationsResponse) => void;
+type GetMissionsNextCallback = (
+  err: any,
+  result: GetMissionsNextResponse
+) => void;
+
+export interface SOAPClient extends soap.Client {
+  getLines(args: GetLinesArgs, callback: GetLinesCallback): void;
+  getDirections(args: GetDirectionsArgs, callback: GetDirectionsCallback): void;
+  getStations(args: GetStationsArgs, callback: GetStationsCallback): void;
+  getMissionsNext(
+    args: GetMissionsNextArgs,
+    callback: GetMissionsNextCallback
+  ): void;
 }
