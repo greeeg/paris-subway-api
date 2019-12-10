@@ -19,7 +19,7 @@
   "homepage": "https://github.com/greeeg/paris-subway-api#readme",
   "devDependencies": {
     "@graphql-codegen/cli": "^1.9.1",
-    "@graphql-codegen/typescript": "0.1.0",
+    "@graphql-codegen/typescript": "^1.9.1",
     "@graphql-codegen/typescript-resolvers": "^1.9.1",
     "@types/es6-promisify": "^6.0.0",
     "@types/node": "^12.12.15",
