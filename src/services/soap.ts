@@ -1,5 +1,5 @@
-import { SOAPClient, GetLinesArgs } from '../types/soap';
-import { Line } from '../types/graphql';
+import { SOAPClient, GetLinesArgs, GetStationsArgs } from '../types/soap';
+import { Line, Station } from '../types/graphql';
 
 export const getLines = (
   client: SOAPClient,
@@ -24,6 +24,28 @@ export const getLines = (
       );
 
       resolve(lines);
+    });
+  });
+};
+
+export const getStations = (
+  client: SOAPClient,
+  args: GetStationsArgs
+): Promise<Station[]> => {
+  return new Promise((resolve, reject) => {
+    client.getStations(args, (err, result) => {
+      if (err || !result) {
+        reject(err);
+        return;
+      }
+
+      const stations = result.return.stations.map(({ id, name, line }) => ({
+        id,
+        name,
+        line
+      }));
+
+      resolve(stations);
     });
   });
 };

@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string,
@@ -17,16 +18,23 @@ export type Line = {
   name: Scalars['String'],
   image: Scalars['String'],
   reseau?: Maybe<Reseau>,
+  stations?: Maybe<Array<Maybe<Station>>>,
 };
 
 export type Query = {
    __typename?: 'Query',
   lines: Array<Maybe<Line>>,
+  stations: Array<Maybe<Station>>,
 };
 
 
 export type QueryLinesArgs = {
   reseau?: Maybe<Scalars['String']>
+};
+
+
+export type QueryStationsArgs = {
+  line: Scalars['String']
 };
 
 export type Reseau = {
@@ -35,6 +43,13 @@ export type Reseau = {
   code: Scalars['String'],
   name: Scalars['String'],
   image: Scalars['String'],
+};
+
+export type Station = {
+   __typename?: 'Station',
+  id: Scalars['String'],
+  name: Scalars['String'],
+  line?: Maybe<Line>,
 };
 
 
@@ -112,6 +127,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>,
   Line: ResolverTypeWrapper<Line>,
   Reseau: ResolverTypeWrapper<Reseau>,
+  Station: ResolverTypeWrapper<Station>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
@@ -121,6 +137,7 @@ export type ResolversParentTypes = {
   String: Scalars['String'],
   Line: Line,
   Reseau: Reseau,
+  Station: Station,
   Boolean: Scalars['Boolean'],
 };
 
@@ -131,10 +148,12 @@ export type LineResolvers<ContextType = any, ParentType extends ResolversParentT
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   reseau?: Resolver<Maybe<ResolversTypes['Reseau']>, ParentType, ContextType>,
+  stations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Station']>>>, ParentType, ContextType>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   lines?: Resolver<Array<Maybe<ResolversTypes['Line']>>, ParentType, ContextType, QueryLinesArgs>,
+  stations?: Resolver<Array<Maybe<ResolversTypes['Station']>>, ParentType, ContextType, RequireFields<QueryStationsArgs, 'line'>>,
 };
 
 export type ReseauResolvers<ContextType = any, ParentType extends ResolversParentTypes['Reseau'] = ResolversParentTypes['Reseau']> = {
@@ -144,10 +163,17 @@ export type ReseauResolvers<ContextType = any, ParentType extends ResolversParen
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
+export type StationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Station'] = ResolversParentTypes['Station']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  line?: Resolver<Maybe<ResolversTypes['Line']>, ParentType, ContextType>,
+};
+
 export type Resolvers<ContextType = any> = {
   Line?: LineResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Reseau?: ReseauResolvers<ContextType>,
+  Station?: StationResolvers<ContextType>,
 };
 
 

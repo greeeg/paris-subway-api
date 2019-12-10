@@ -5,6 +5,7 @@ type Line {
   name: String!
   image: String!
   reseau: Reseau
+  stations: [Station]
 }
 
 type Reseau {
@@ -14,6 +15,12 @@ type Reseau {
   image: String!
 }
 
+type Station {
+  id: String!
+  name: String!
+}
+
 type Query {
   lines(reseau: String): [Line]!
+  stations(line: String!): [Station]!
 }
