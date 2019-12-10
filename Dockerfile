@@ -61,6 +61,7 @@ WORKDIR /opt/app
 # Copy dependencies and compiled application from previous steps
 COPY --from=dependencies /opt/build/node_modules /opt/app/node_modules
 COPY --from=build /opt/build/dist /opt/app/dist
+COPY --from=build /opt/build/src /opt/app/src
 
 WORKDIR /opt/app
 
