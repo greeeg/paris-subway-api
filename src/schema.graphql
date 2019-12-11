@@ -20,7 +20,14 @@ type Station {
   name: String!
 }
 
+type Direction {
+  sens: String!
+  name: String!
+  line: Line!
+}
+
 type Query {
   lines(reseau: String): [Line]!
   stations(line: String!): [Station]!
+  directions(line: String!): [Direction]!
 }

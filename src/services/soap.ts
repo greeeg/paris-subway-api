@@ -1,5 +1,10 @@
-import { SOAPClient, GetLinesArgs, GetStationsArgs } from '../types/soap';
-import { Line, Station } from '../types/graphql';
+import {
+  SOAPClient,
+  GetLinesArgs,
+  GetStationsArgs,
+  GetDirectionsArgs
+} from '../types/soap';
+import { Line, Station, Direction } from '../types/graphql';
 
 export const getLines = (
   client: SOAPClient,
@@ -46,6 +51,30 @@ export const getStations = (
       }));
 
       resolve(stations);
+    });
+  });
+};
+
+export const getDirections = (
+  client: SOAPClient,
+  args: GetDirectionsArgs
+): Promise<Direction[]> => {
+  return new Promise((resolve, reject) => {
+    client.getDirections(args, (err, result) => {
+      if (err || !result) {
+        reject(err);
+        return;
+      }
+
+      const directions = result.return.directions.map(
+        ({ sens, name, line }) => ({
+          sens,
+          name,
+          line
+        })
+      );
+
+      resolve(directions);
     });
   });
 };
