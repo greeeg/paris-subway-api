@@ -56,5 +56,5 @@ The following scripts are embedded with the package:
 docker build -t paris-subway-api .
 
 # Run image locally
-docker run -d -p 4000:4000 paris-subway-api
+docker run --init -p 4000:4000 paris-subway-api
 ```
