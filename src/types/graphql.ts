@@ -26,6 +26,7 @@ export type Line = {
   image: Scalars['String'],
   reseau?: Maybe<Reseau>,
   stations?: Maybe<Array<Maybe<Station>>>,
+  directions?: Maybe<Array<Maybe<Direction>>>,
 };
 
 export type Query = {
@@ -169,6 +170,7 @@ export type LineResolvers<ContextType = any, ParentType extends ResolversParentT
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   reseau?: Resolver<Maybe<ResolversTypes['Reseau']>, ParentType, ContextType>,
   stations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Station']>>>, ParentType, ContextType>,
+  directions?: Resolver<Maybe<Array<Maybe<ResolversTypes['Direction']>>>, ParentType, ContextType>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

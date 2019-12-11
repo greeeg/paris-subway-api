@@ -6,6 +6,7 @@ type Line {
   image: String!
   reseau: Reseau
   stations: [Station]
+  directions: [Direction]
 }
 
 type Reseau {

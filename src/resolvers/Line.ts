@@ -1,5 +1,5 @@
 import { Context } from '../types';
-import { getStations } from '../services/soap';
+import { getStations, getDirections } from '../services/soap';
 import { LineResolvers } from '../types/graphql';
 
 const Line: LineResolvers = {
@@ -9,6 +9,12 @@ const Line: LineResolvers = {
     });
 
     return stations;
+  },
+  directions: async ({ id }, args, ctx: Context) => {
+    const directions = await getDirections(ctx.client, {
+      line: { id }
+    });
+    return directions;
   }
 };
 
