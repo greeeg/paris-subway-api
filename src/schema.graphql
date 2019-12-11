@@ -19,6 +19,8 @@ type Reseau {
 type Station {
   id: String!
   name: String!
+  line: Line
+  missions(direction: String!, date: String): [Mission]
 }
 
 type Direction {
@@ -27,8 +29,23 @@ type Direction {
   line: Line!
 }
 
+type Mission {
+  id: String
+  direction: Direction!
+  line: Line
+  stationEndLine: Station
+  stations: [Station]
+  stationsDates: [String]
+}
+
 type Query {
   lines(reseau: String): [Line]!
   stations(line: String!): [Station]!
   directions(line: String!): [Direction]!
+  missions(
+    station: String!
+    line: String!
+    direction: String!
+    date: String
+  ): [Mission]!
 }

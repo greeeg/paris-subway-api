@@ -1,5 +1,10 @@
 import { Context } from '../types';
-import { getLines, getStations, getDirections } from '../services/soap';
+import {
+  getLines,
+  getStations,
+  getDirections,
+  getMissions
+} from '../services/soap';
 import { QueryResolvers } from '../types/graphql';
 
 const Query: QueryResolvers = {
@@ -24,6 +29,18 @@ const Query: QueryResolvers = {
       line: { id: line }
     });
     return directions;
+  },
+  missions: async (
+    parent,
+    { station, line, direction, date },
+    ctx: Context
+  ) => {
+    const missions = await getMissions(ctx.client, {
+      station: { id: station, line: { id: line } },
+      direction: { sens: direction },
+      dateStart: date
+    });
+    return missions;
   }
 };
 

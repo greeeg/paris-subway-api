@@ -68,16 +68,11 @@ interface StationAccess {
 
 interface Mission {
   id?: string;
-  code?: string;
-  line: Line;
   direction: Direction;
+  line: Line;
   stationEndLine?: Station;
-  stationsDates: Date[];
-  stationsMessages: string[];
-  stationsPlatforms: string[];
-  stationsStops: boolean[];
-  perturbations: Perturbation[];
-  stations: Station[];
+  stations?: [Station, Station];
+  stationsDates?: string[];
 }
 
 interface Tarif {
