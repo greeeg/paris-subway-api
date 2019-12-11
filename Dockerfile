@@ -1,69 +1,20 @@
-#################################################################
-# Step 1: Initial build using the `yarn build` command          #
-#################################################################
-# Note: Make sure the right version of node your application    #
-# requires is set here and in all other build steps.            #
-#################################################################
-FROM node:12 as build
+FROM node:10.16.3 as builder
 
-# Prepare the build directory
-RUN mkdir -p /opt/build;
+WORKDIR /build
+COPY . .
+RUN yarn install
+RUN yarn run build
+RUN yarn install --production
 
-WORKDIR /opt/build
+FROM node:10.16.3-slim
 
-# If your build step requires environment variables too, add them here
+WORKDIR /app
+COPY --from=builder /build/node_modules ./node_modules/
+COPY --from=builder /build/dist ./dist
 
-# Copy required files
-# Note: I specify each file directly here to avoid copying over
-# existing /dist folder or other dev files like .env
-COPY ./src ./src
-COPY [ "package.json", "yarn.lock", "tsconfig.json", "./" ]
+COPY --from=builder /build/src/schema.graphql ./src/
+COPY --from=builder /build/src/wsiv.wsdl ./src/
 
-RUN yarn install --no-progress && yarn build
+USER node
 
-
-#################################################################
-# Step 2: Fetch production-only dependencies                    #
-#################################################################
-# Note: Make sure the right version of node your application    #
-# requires is set here and in all other build steps.            #
-#################################################################
-FROM node:12 as dependencies
-
-# Set environment to production
-ENV NODE_ENV='production'
-
-RUN mkdir -p /opt/build;
-
-WORKDIR /opt/build
-
-COPY --from=build [ "/opt/build/package.json", "/opt/build/yarn.lock", "./" ]
-
-RUN yarn install --production=true --no-progress
-
-
-#################################################################
-# Step 3: Build done, create the deployable/runnable image step #
-#################################################################
-# Note: Make sure the right version of node your application    #
-# requires is set here and in all other build steps.            #
-#################################################################
-FROM node:12-slim as release
-
-# Set environment to production
-ENV NODE_ENV='production'
-
-# Prepare the app directory
-RUN mkdir -p /opt/app;
-
-WORKDIR /opt/app
-
-# Copy dependencies and compiled application from previous steps
-COPY --from=dependencies /opt/build/node_modules /opt/app/node_modules
-COPY --from=build /opt/build/dist /opt/app/dist
-COPY --from=build /opt/build/src /opt/app/src
-
-WORKDIR /opt/app
-
-# Run the application using node
-ENTRYPOINT [ "node", "dist/index.js" ]
+CMD ["node", "dist/index.js"]

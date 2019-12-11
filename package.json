@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "nodemon",
+    "start": "docker run --init -p 4000:4000 paris-subway-api",
     "build": "tsc --skipLibCheck",
     "generate:types": "graphql-codegen --config codegen.yml"
   },
