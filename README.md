@@ -10,6 +10,18 @@
 
 > GraphQL layer for Paris Transportation Authority's [real-time API](https://dataratp.opendatasoft.com/page/temps-reel/)
 
+```graphql
+query {
+  lines(reseau: "metro") {
+    name
+    code
+    stations {
+      name
+    }
+  }
+}
+```
+
 ## Requirements
 
 - Node.js version `10.15.3` or above
