@@ -38,7 +38,8 @@ const Query: QueryResolvers = {
     const missions = await getMissions(ctx.client, {
       station: { id: station, line: { id: line } },
       direction: { sens: direction },
-      dateStart: date
+      dateStart: date,
+      limit: 5
     });
     return missions;
   }

@@ -6,6 +6,7 @@ import {
   GetMissionsNextArgs
 } from '../types/soap';
 import { Line, Station, Direction, Mission } from '../types/graphql';
+import { formatDate } from '../utils/date.utils';
 
 export const getLines = (
   client: SOAPClient,
@@ -103,7 +104,7 @@ export const getMissions = (
           line,
           stationEndLine,
           stations,
-          stationsDates
+          stationsDates: stationsDates.map(date => formatDate(date))
         })
       );
 
