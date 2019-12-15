@@ -48,4 +48,6 @@ type Query {
     direction: String!
     date: String
   ): [Mission]!
+  line(id: String!): Line
+  station(id: String!): Station
 }
