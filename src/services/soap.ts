@@ -15,7 +15,12 @@ export const getLines = (
   return new Promise((resolve, reject) => {
     client.getLines(args, (err, result) => {
       if (err || !result) {
-        reject(err);
+        resolve([]);
+        return;
+      }
+
+      if (!result.return) {
+        resolve([]);
         return;
       }
 
@@ -42,7 +47,12 @@ export const getStations = (
   return new Promise((resolve, reject) => {
     client.getStations(args, (err, result) => {
       if (err || !result) {
-        reject(err);
+        resolve([]);
+        return;
+      }
+
+      if (!result.return.stations) {
+        resolve([]);
         return;
       }
 
@@ -64,7 +74,12 @@ export const getDirections = (
   return new Promise((resolve, reject) => {
     client.getDirections(args, (err, result) => {
       if (err || !result) {
-        reject(err);
+        resolve([]);
+        return;
+      }
+
+      if (!result.return.directions) {
+        resolve([]);
         return;
       }
 
@@ -88,7 +103,7 @@ export const getMissions = (
   return new Promise((resolve, reject) => {
     client.getMissionsNext(args, (err, result) => {
       if (err || !result) {
-        reject(err);
+        resolve([]);
         return;
       }
 
